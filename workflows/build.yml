@@ -3,7 +3,7 @@ name: Build LineageOS with MicroG
 on:
   push:
     branches:
-      - lineage-22.02
+      - lineage-22.2
   workflow_dispatch:
 
 jobs:
