@@ -13,12 +13,12 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
-    - name: Setup repo tool
+    - name: Setup repo tool and dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y repo
+        sudo apt-get install -y repo wget git openjdk-17-jdk bc bison build-essential curl flex g++-multilib gcc-multilib git-core gnupg gperf imagemagick lib32ncurses5-dev lib32z1-dev libc6-dev-i386 libgl1-mesa-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop maven openjdk-11-jdk openjdk-17-jdk pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev
 
     - name: Initialize repo
       run: |
@@ -29,7 +29,7 @@ jobs:
 
     - name: Add MicroG, Aurora, Firefox
       run: |
-        cd ~/android/lineage
+        chmod +x ./scripts/add-prebuilt-apks.sh
         ./scripts/add-prebuilt-apks.sh
 
     - name: Build LineageOS
@@ -40,7 +40,7 @@ jobs:
         make bacon -j$(nproc)
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: lineageos-build
         path: ~/android/lineage/out/target/product/generic_x86_64/*.zip
