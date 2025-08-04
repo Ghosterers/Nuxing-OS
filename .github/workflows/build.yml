@@ -15,10 +15,10 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Setup repo tool and dependencies
+    - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y repo wget git openjdk-17-jdk bc bison build-essential curl flex g++-multilib gcc-multilib git-core gnupg gperf imagemagick lib32ncurses5-dev lib32z1-dev libc6-dev-i386 libgl1-mesa-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop maven openjdk-11-jdk openjdk-17-jdk pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev
+        sudo apt-get install -y openjdk-17-jdk repo bc bison build-essential curl flex g++-multilib gcc-multilib git-core gnupg gperf imagemagick liblz4-tool libncurses5-dev libncurses-dev libxml2-utils lzop pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev wget
 
     - name: Initialize repo
       run: |
@@ -27,7 +27,7 @@ jobs:
         repo init -u https://github.com/Ghosterers/Nuxing-OS.git -b lineage-20.0
         repo sync --force-sync -j$(nproc)
 
-    - name: Add MicroG, Aurora, Firefox
+    - name: Add MicroG, Aurora Store, Firefox
       run: |
         chmod +x ./scripts/add-prebuilt-apks.sh
         ./scripts/add-prebuilt-apks.sh
